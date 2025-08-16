@@ -1,141 +1,635 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - Christian Manzala Kumbi</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio — Christian Manzala Kumbi | Consultant Data Analyst / Data Scientist</title>
+  <meta name="description" content="Portfolio de Christian Manzala Kumbi — Consultant Data Analyst / Data Scientist. Réalisations en détection de fraude, IoT & géospatial, data engineering, BI & IA." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #f7f8fa;
+      --card: #ffffff;
+      --text: #111827;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --primary: #2563eb;  /* bleu accessible */
+      --primary-ink: #0b3aa4;
+      --accent: #0ea5e9;
+      --ring: rgba(37, 99, 235, .25);
+      --shadow: 0 10px 30px rgba(17, 24, 39, 0.08);
+      --radius: 16px;
+      --radius-sm: 12px;
+      --radius-lg: 24px;
+      --maxw: 1100px;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      :root { scroll-behavior: smooth; }
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: linear-gradient(180deg, #ffffff, #fafbff);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Header / Nav */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(255,255,255,.8);
+      backdrop-filter: saturate(180%) blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: var(--maxw); margin: 0 auto; padding: 12px 20px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 12px;
+      font-weight: 800; letter-spacing: .2px;
+    }
+    .brand-badge {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: conic-gradient(from 210deg, var(--primary), var(--accent));
+      box-shadow: inset 0 0 0 3px #fff, var(--shadow);
+    }
+    .nav a {
+      color: var(--text); text-decoration: none; font-weight: 500;
+      padding: 8px 12px; border-radius: 10px;
+    }
+    .nav a:hover { background: var(--surface); }
+    .nav a[aria-current="page"] {
+      color: var(--primary); background: rgba(37,99,235,.08);
+    }
+    .nav-links { display: flex; gap: 6px; align-items: center; }
+    .nav-cta { display: none; }
+    .burger { display: none; }
+
+    @media (max-width: 860px) {
+      .nav-links { display: none; }
+      .nav-cta { display: inline-flex; }
+      .burger { display: inline-flex; background: transparent; border: none; font-size: 1.4rem; }
+      #mobileMenu {
+        display: none; border-top: 1px solid var(--border);
+        background: #fff;
+      }
+      #mobileMenu.open { display: block; }
+      #mobileMenu a { display: block; padding: 12px 20px; border-bottom: 1px solid var(--border); }
+    }
+
+    /* Layout */
+    .container { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+    section { padding: 64px 0; }
+    .section-head {
+      display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 24px;
+    }
+    .section-title {
+      font-size: clamp(1.4rem, 2.4vw, 2rem); margin: 0;
+      letter-spacing: .2px;
+    }
+    .section-sub { color: var(--muted); margin: 6px 0 0; }
+
+    /* Hero */
+    .hero {
+      padding: 64px 0 24px;
+    }
+    .hero-grid {
+      display: grid; grid-template-columns: 1.2fr .8fr; gap: 32px; align-items: center;
+    }
+    .hero-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 28px; box-shadow: var(--shadow);
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 10px; border-radius: 999px;
+      background: rgba(37,99,235,.08); color: var(--primary); font-weight: 600; font-size: .9rem;
+    }
+    .hero h1 {
+      font-size: clamp(1.8rem, 3.6vw, 3rem); line-height: 1.15; margin: 14px 0 10px;
+      letter-spacing: .2px;
+    }
+    .hero p { color: var(--muted); margin: 0 0 18px; }
+    .cta { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 12px 16px; border-radius: 12px; border: 1px solid var(--border);
+      background: #fff; color: var(--text); text-decoration: none; font-weight: 600;
+      transition: transform .05s ease, background .2s ease, box-shadow .2s ease;
+    }
+    .btn:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
+    .btn-primary {
+      background: linear-gradient(180deg, #2e6af0, #2457cb); color: #fff; border: none;
+      box-shadow: 0 8px 24px rgba(37,99,235,.25);
+    }
+    .btn-outline { background: #fff; }
+    .avatar {
+      background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+      padding: 16px; box-shadow: var(--shadow);
+    }
+    .avatar .photo {
+      aspect-ratio: 1/1; width: 100%; border-radius: 16px;
+      background: linear-gradient(135deg, rgba(37,99,235,.15), rgba(14,165,233,.15));
+      display: grid; place-items: center; font-weight: 700; color: var(--primary);
+    }
+    .stats {
+      margin-top: 12px; display: grid; grid-template-columns: repeat(3,1fr); gap: 10px;
+    }
+    .stat { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px; text-align: center; }
+    .stat b { font-size: 1.2rem; display: block; }
+    .stat span { color: var(--muted); font-size: .92rem; }
+
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Cards grid */
+    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 18px; }
+    .col-4 { grid-column: span 4; }
+    .col-6 { grid-column: span 6; }
+    .col-12 { grid-column: span 12; }
+    @media (max-width: 900px) {
+      .col-4, .col-6 { grid-column: span 12; }
+    }
+    .card {
+      background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+      box-shadow: var(--shadow); padding: 18px;
+    }
+    .card h3 { margin: 0 0 6px; font-size: 1.05rem; }
+    .card p { margin: 0; color: var(--muted); }
+
+    /* Project card */
+    .project {
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .cover {
+      width: 100%; height: 160px; border-radius: 12px; border: 1px solid var(--border);
+      background:
+        radial-gradient(80% 120% at 10% 0%, rgba(37,99,235,.22), transparent 60%),
+        radial-gradient(60% 100% at 100% 50%, rgba(14,165,233,.18), transparent 55%),
+        linear-gradient(180deg, #ffffff, #f7fafc);
+    }
+    .meta { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 10px; border-radius: 999px; border: 1px solid var(--border);
+      background: #fff; color: #1f2937; font-weight: 600; font-size: .85rem;
+    }
+    .chip i { font-style: normal; color: var(--primary); }
+
+    .kpi {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-top: 6px;
+    }
+    .kpi .pill {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+      padding: 8px 10px; font-size: .92rem; text-align: center;
+    }
+    .pill b { color: var(--primary); }
+
+    /* Timeline */
+    .timeline {
+      display: grid; gap: 14px;
+    }
+    .item {
+      display: grid; grid-template-columns: 160px 1fr; gap: 16px; align-items: start;
+      padding: 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--card); box-shadow: var(--shadow);
+    }
+    .item small { color: var(--muted); }
+    .item h4 { margin: 2px 0 8px; }
+    .item ul { margin: 0; padding-left: 18px; }
+    @media (max-width: 700px) {
+      .item { grid-template-columns: 1fr; }
+    }
+
+    /* Skills */
+    .skill-group { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; }
+    .skill-list { display: flex; flex-wrap: wrap; gap: 10px; }
+
+    /* Contact */
+    .contact {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
+    }
+    .contact .card a { color: var(--primary); text-decoration: none; font-weight: 600; }
+    .contact .card a:hover { text-decoration: underline; }
+
+    @media (max-width: 860px) {
+      .contact { grid-template-columns: 1fr; }
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 40px; padding: 32px 0; border-top: 1px solid var(--border); color: var(--muted);
+    }
+
+    /* Focus ring */
+    :focus-visible {
+      outline: 3px solid var(--ring);
+      outline-offset: 2px;
+      border-radius: 8px;
+    }
+  </style>
 </head>
 <body>
 
-<header>
-    <h1>Christian Manzala Kumbi</h1>
-    <h2>Consultant Data Analyst / Data Scientist</h2>
-    <p><br>Vous recherchez un freelance pour vos missions Data ?<br><p>
-<p>Échangeons sur votre besoin afin d’identifier ensemble comment je pourrais vous apporter mon expertise et contribuer à la réussite de votre projet.</p>
-    <nav>
-        <ul>
-            <li><a href="#contact">Contact</a></li>
-            <li><a href="#experiences_pro">Expériences pro.</a></li>
-            <li><a href="#formation">Formation</a></li>
-            <li><a href="#competences">Compétences</a></li>
-            <li><a href="#certifications">Certifications</a></li>
-            <li><a href="#experiences_asso">Expériences asso.</a></li>
-            <li><a href="#langues">Langues</a></li>
-            <li><a href="#projets">Projets</a></li>
-            <li><a href="#interets">Centres d’intérêt</a></li>
-        </ul>
-    </nav>
-</header>
-
-<section id="contact">
-    <h3>📬 Contact</h3>
-    <p>Email : <a href="mailto:cmanzalak@gmail.com">cmanzalak.com</a></p>
-    <p>Téléphone : +33 7 53 11 41 80</p>
-    <p>Ville : Paris, France</p>
-    <p>LinkedIn : <a href="#">linkedin.com/in/christian-manzala</a></p>
-    <p>GitHub : <a href="#">github.com/christian-manzala</a></p>
-</section>
-
-<section id="experiences_pro">
-    <h3>💼 Expériences professionnelles</h3>
-    <div class="card">
-        <h4>Intervenant pédagogique</h4>
-        <p><em>Complétude | Depuis février 2025</em></p>
-        <p>Enseignement des mathématiques et de l’informatique du collège au supérieur.</p>
+  <header class="nav" role="banner">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-badge" aria-hidden="true"></div>
+        <div>Christian Manzala K.</div>
+      </div>
+      <nav aria-label="Navigation principale" class="nav-links">
+        <a href="#realisations">Réalisations</a>
+        <a href="#competences">Compétences</a>
+        <a href="#experience">Expérience</a>
+        <a href="#formation">Formation</a>
+        <a href="#contact" class="nav-cta btn btn-primary" style="padding:8px 12px">Me contacter</a>
+      </nav>
+      <button class="burger" aria-label="Ouvrir le menu" aria-controls="mobileMenu" aria-expanded="false">☰</button>
     </div>
-    <div class="card">
-        <h4>Data Scientist Freelance - Prévention des dangers des ouvrages hydrauliques</h4>
-        <p><em>Ingérop | Janv. 2025 - Mai 2025</em></p>
-        <p>Modélisation prédictive des risques (crues, ruptures) via R, Python, QGIS, PostgreSQL.</p>
+    <div id="mobileMenu" role="dialog" aria-label="Menu mobile">
+      <a href="#realisations">Réalisations</a>
+      <a href="#competences">Compétences</a>
+      <a href="#experience">Expérience</a>
+      <a href="#formation">Formation</a>
+      <a href="#contact">Contact</a>
     </div>
-    <div class="card">
-        <h4>Data Scientist - Lutte contre la fraude à l’assurance</h4>
-        <p><em>Malakoff Humanis | Sept. 2023 - Oct. 2024</em></p>
-        <p>Déploiement d’un algorithme IA sur AWS EKS, orchestration Airflow, reporting PowerBI. <strong>+2% taux de détection</strong>.</p>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="accueil">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-card">
+            <span class="eyebrow">Consultant Data Analyst / Data Scientist</span>
+            <h1>Je transforme vos données en décisions <span style="color:var(--primary)">actionnables</span>.</h1>
+            <p>
+              Spécialisé en <b>analyse</b>, <b>modélisation prédictive</b> et <b>gouvernance de la donnée</b>,
+              avec des projets menés en assurance (détection de fraude), géospatial &amp; IoT (ouvrages hydrauliques),
+              santé (signaux EEG) et data visualisation.
+            </p>
+            <div class="cta">
+              <a class="btn btn-primary" href="assets/CV_Christian_Manzala.pdf" target="_blank" rel="noopener">Télécharger le CV</a>
+              <a class="btn btn-outline" href="https://github.com/chrismanzala" target="_blank" rel="noopener">Voir mon GitHub</a>
+              <a class="btn btn-outline" href="#contact">Me contacter</a>
+            </div>
+          </div>
+
+          <aside class="avatar" aria-label="Carte profil">
+            <div class="photo">
+              CMK
+            </div>
+            <div class="stats" aria-label="Indicateurs">
+              <div class="stat">
+                <b>+<span>??</span></b>
+                <span>Projets livrés</span>
+              </div>
+              <div class="stat">
+                <b>+<span>??</span>%</b>
+                <span>Gain de temps</span>
+              </div>
+              <div class="stat">
+                <b>+<span>??</span>%</b>
+                <span>Satisfaction client</span>
+              </div>
+            </div>
+            <!-- Remplace les ?? par tes vrais chiffres -->
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- REALISATIONS -->
+    <section id="realisations">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Réalisations clés</h2>
+            <p class="section-sub">Une sélection de projets concrets avec impact mesurable.</p>
+          </div>
+          <div class="cta">
+            <a class="btn" href="#contact">Discuter d’un projet</a>
+          </div>
+        </div>
+
+        <div class="grid">
+          <!-- Projet 1 -->
+          <article class="card project col-6">
+            <div class="cover" aria-hidden="true"></div>
+            <h3>Détection de fraude — Malakoff Humanis</h3>
+            <p>
+              Industrialisation d’un dispositif de <b>détection de fraude</b> en environnement cloud :
+              <b>Dataiku DSS</b>, <b>Airflow</b>, <b>Docker</b>, orchestration sur <b>AWS EKS</b>, suivi qualité &amp; conformité.
+              Restitution via <b>Power BI</b> pour les métiers.
+            </p>
+            <div class="meta">
+              <span class="chip"><i>⚙</i> Dataiku, Airflow, Docker</span>
+              <span class="chip"><i>☁</i> AWS EKS</span>
+              <span class="chip"><i>📊</i> Power BI</span>
+              <span class="chip"><i>🤖</i> ML Ops</span>
+            </div>
+            <div class="kpi">
+              <div class="pill"><b>+2&nbsp;%</b> de détection (précision renforcée)</div>
+              <div class="pill"><b>Automatisation</b> de bout en bout</div>
+              <div class="pill">Documentation &amp; traçabilité complètes</div>
+            </div>
+          </article>
+
+          <!-- Projet 2 -->
+          <article class="card project col-6">
+            <div class="cover" aria-hidden="true"></div>
+            <h3>IoT &amp; géospatial — Ingérop (ouvrages hydrauliques)</h3>
+            <p>
+              <b>Analyse spatio-temporelle</b> de données capteurs IoT, météo &amp; topo,
+              <b>détection précoce d’anomalies</b> et <b>modélisation des risques</b> (crues, ruptures).
+              Stack <b>Python</b>/<b>R</b>, <b>GeoPandas</b>, <b>QGIS</b>, <b>PostgreSQL</b>.
+              Tableaux de bord dynamiques pour l’alerte.
+            </p>
+            <div class="meta">
+              <span class="chip"><i>🗺</i> GeoPandas, QGIS</span>
+              <span class="chip"><i>🛢</i> PostgreSQL</span>
+              <span class="chip"><i>📈</i> Anomaly Detection</span>
+            </div>
+            <div class="kpi">
+              <div class="pill"><b>-40&nbsp;%</b> temps de traitement des alertes</div>
+              <div class="pill"><b>Prévention</b> incidents critiques</div>
+              <div class="pill"><b>Visualisation</b> spatio-temporelle</div>
+            </div>
+          </article>
+
+          <!-- Projet 3 -->
+          <article class="card project col-4">
+            <div class="cover" aria-hidden="true"></div>
+            <h3>Prédiction de crises d’épilepsie — INS</h3>
+            <p>
+              Recherche appliquée sur signaux <b>EEG</b>, extraction de caractéristiques,
+              prototypage de modèles <b>Keras</b>/<b>Scikit-learn</b> et évaluation robuste.
+            </p>
+            <div class="meta">
+              <span class="chip"><i>🧠</i> EEG</span>
+              <span class="chip"><i>🤖</i> Keras, Sklearn</span>
+              <span class="chip"><i>🧪</i> Validation</span>
+            </div>
+          </article>
+
+          <!-- Projet 4 -->
+          <article class="card project col-4">
+            <div class="cover" aria-hidden="true"></div>
+            <h3>Data For Good — Bénévolat</h3>
+            <p>
+              Contribution à des projets <b>à impact social</b> : cadrage data, pipelines
+              et visualisations pour la prise de décision des associations.
+            </p>
+            <div class="meta">
+              <span class="chip"><i>💚</i> Impact</span>
+              <span class="chip"><i>🧰</i> ETL &amp; Viz</span>
+            </div>
+          </article>
+
+          <!-- Projet 5 -->
+          <article class="card project col-4">
+            <div class="cover" aria-hidden="true"></div>
+            <h3>Entrepôt Cloud &amp; BI — Projet académique</h3>
+            <p>
+              <b>BigQuery</b> comme entrepôt de données, requêtes <b>SQL</b> optimisées,
+              <b>ETL</b> automatisés, exploration &amp; <b>Tableau/Power BI</b>.
+            </p>
+            <div class="meta">
+              <span class="chip"><i>☁</i> BigQuery</span>
+              <span class="chip"><i>🧮</i> SQL</span>
+              <span class="chip"><i>📊</i> Tableau / Power BI</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPETENCES -->
+    <section id="competences">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Compétences &amp; outillage</h2>
+            <p class="section-sub">Du cadrage à la mise en production.</p>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="skill-group col-6">
+            <h3>Langages &amp; Data</h3>
+            <div class="skill-list">
+              <span class="chip">Python</span>
+              <span class="chip">R</span>
+              <span class="chip">SQL (PostgreSQL, BigQuery)</span>
+              <span class="chip">Pandas / GeoPandas</span>
+              <span class="chip">Scikit-learn</span>
+              <span class="chip">Keras / TensorFlow</span>
+              <span class="chip">XGBoost</span>
+              <span class="chip">NumPy</span>
+            </div>
+          </div>
+          <div class="skill-group col-6">
+            <h3>Data Viz &amp; BI</h3>
+            <div class="skill-list">
+              <span class="chip">Power BI</span>
+              <span class="chip">Tableau</span>
+              <span class="chip">Matplotlib / Plotly</span>
+              <span class="chip">QGIS</span>
+            </div>
+          </div>
+          <div class="skill-group col-6">
+            <h3>Cloud &amp; MLOps</h3>
+            <div class="skill-list">
+              <span class="chip">AWS (EKS)</span>
+              <span class="chip">GCP (BigQuery)</span>
+              <span class="chip">Docker</span>
+              <span class="chip">Airflow</span>
+              <span class="chip">Dataiku DSS</span>
+              <span class="chip">Git / GitHub</span>
+            </div>
+          </div>
+          <div class="skill-group col-6">
+            <h3>Data Governance &amp; Soft skills</h3>
+            <div class="skill-list">
+              <span class="chip">Qualité &amp; traçabilité</span>
+              <span class="chip">RGPD (sensibilisation)</span>
+              <span class="chip">Cadrage &amp; priorisation</span>
+              <span class="chip">Pédagogie &amp; vulgarisation</span>
+              <span class="chip">Leadership &amp; agilité</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Expérience</h2>
+            <p class="section-sub">Sélection d’expériences pertinentes.</p>
+          </div>
+        </div>
+
+        <div class="timeline">
+          <div class="item">
+            <div>
+              <small>2025 — Paris (Freelance)</small>
+              <h4>Data Analyst / Data Scientist — Ingérop</h4>
+            </div>
+            <div>
+              <ul>
+                <li>Analyse et visualisation <b>spatio-temporelles</b> (capteurs IoT, météo, topo) pour la <b>détection précoce d’anomalies</b> sur ouvrages hydrauliques.</li>
+                <li>Modélisation <b>prédictive</b> des risques (crues, ruptures) — <b>Python</b>, <b>R</b>, <b>GeoPandas</b>, <b>QGIS</b>, <b>PostgreSQL</b>.</li>
+                <li><b>-40&nbsp;%</b> sur le délai de traitement des alertes critiques via automatisation des flux.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="item">
+            <div>
+              <small>2024 — Paris</small>
+              <h4>Data Scientist — Malakoff Humanis</h4>
+            </div>
+            <div>
+              <ul>
+                <li>Industrialisation d’un pipeline de <b>détection de fraude</b> sur <b>AWS</b> (EKS), <b>Airflow</b>, <b>Docker</b>, <b>Dataiku</b>.</li>
+                <li>Gouvernance : documentation, QA, monitoring, <b>restauration des résultats</b> pour les métiers (<b>Power BI</b>).</li>
+                <li><b>+2&nbsp;%</b> de taux de détection avec une précision renforcée.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="item">
+            <div>
+              <small>2023 — Marseille</small>
+              <h4>Stagiaire Recherche — Institut des Neurosciences &amp; des Systèmes</h4>
+            </div>
+            <div>
+              <ul>
+                <li>Détection et prédiction d’événements à partir de <b>signaux EEG</b>.</li>
+                <li>Feature engineering, modèles <b>Keras</b> / <b>Scikit-learn</b>, évaluations robustes.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="item">
+            <div>
+              <small>Pro bono — Paris</small>
+              <h4>Data For Good — Bénévolat</h4>
+            </div>
+            <div>
+              <ul>
+                <li>Accompagnement data d’associations : cadrage, pipelines, tableaux de bord décisionnels.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FORMATION -->
+    <section id="formation">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Formation</h2>
+            <p class="section-sub">Base théorique solide pour des solutions pragmatiques.</p>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="card col-6">
+            <h3>Master 2 — Data Science</h3>
+            <p>Université (À PERSONNALISER) — Statistiques, ML, Big Data, Visualisation, Projet de fin d’études.</p>
+          </div>
+          <div class="card col-6">
+            <h3>Certifications (sélection)</h3>
+            <p>À PERSONNALISER : AWS / GCP, Dataiku, Tableau, Power BI, etc.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Travaillons ensemble</h2>
+            <p class="section-sub">Parlez-moi de votre besoin, je reviens vers vous rapidement.</p>
+          </div>
+        </div>
+
+        <div class="contact">
+          <div class="card">
+            <h3>Contact direct</h3>
+            <p>
+              📧 <a href="mailto:cmanzalak@gmail.com">cmanzalak@gmail.com</a><br/>
+              📞 <a href="tel:+33753114180">+33 7 53 11 41 80</a><br/>
+              🔗 <a href="https://www.linkedin.com/in/christianmanzala" target="_blank" rel="noopener">LinkedIn</a> ·
+              <a href="https://github.com/chrismanzala" target="_blank" rel="noopener">GitHub</a>
+            </p>
+          </div>
+          <div class="card">
+            <h3>Brief rapide</h3>
+            <p>Pas de backend requis : ce bouton ouvre votre messagerie avec un message prérempli.</p>
+            <a class="btn btn-primary"
+               href='mailto:cmanzalak@gmail.com?subject=Mission%20Data%20—%20Brief&body=Bonjour%20Christian,%0A%0ANous%20souhaiterions%20%C3%A9changer%20au%20sujet%20d%27une%20mission%20Data.%20Voici%20quelques%20informations%20:%0A-%20Contexte%20:%0A-%20Objectifs%20:%0A-%20Donn%C3%A9es%20disponibles%20:%0A-%20D%C3%A9lais%20:%0A%0ABien%20%C3%A0%20vous,'>
+              Démarrer un brief par email
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="container">
+      © <span id="year"></span> — Christian Manzala Kumbi — Portfolio.
     </div>
-    <div class="card">
-        <h4>Data Scientist - Traitement du signal MEG (Stage)</h4>
-        <p><em>Institut de Neurosciences des Systèmes | Mai 2023 - Août 2023</em></p>
-        <p>Prédiction des crises d’épilepsie à partir des signaux MEG (Python, MATLAB) - <strong>85% précision</strong>.</p>
-    </div>
-</section>
+  </footer>
 
-<section id="formation">
-    <h3>🎓 Formation</h3>
-    <div class="card">
-        <h4>Master 2 - Data Science</h4>
-        <p><em>Aix-Marseille Université | 2022 - 2024</em></p>
-    </div>
-    <div class="card">
-        <h4>Licence 3 - Mathématiques et Informatique Appliquées</h4>
-        <p><em>Aix-Marseille Université | 2019 - 2022</em></p>
-    </div>
-</section>
+  <script>
+    // Année dynamique
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-<section id="competences">
-    <h3>💻 Compétences & Outils</h3>
-    <ul class="skills">
-        <li><strong>Data Science :</strong> Analyse multivariée, Machine Learning</li>
-        <li><strong>Programmation :</strong> Python, PySpark, R, SQL, MATLAB</li>
-        <li><strong>Analyse de données :</strong> Power BI, QGIS, Excel</li>
-        <li><strong>Base de données :</strong> Hadoop, PostgreSQL, MySQL</li>
-        <li><strong>Déploiement :</strong> Dataiku, Airflow, Docker, AWS</li>
-        <li><strong>Gestion de projet :</strong> Git, Jenkins, Jira</li>
-    </ul>
-</section>
+    // Menu mobile
+    const burger = document.querySelector('.burger');
+    const mobile = document.getElementById('mobileMenu');
+    burger?.addEventListener('click', () => {
+      const open = mobile.classList.toggle('open');
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
 
-<section id="certifications">
-    <h3>💻 Certifications</h3>
-    <ul class="skills">
-        <li><strong>Dataiku Core Designer </strong></li>
-        <li><strong>Dataiku ML Practitioner </strong></li>
-</section>
+    // Surbrillance lien actif au scroll
+    const sections = [...document.querySelectorAll('main section[id]')];
+    const desktopLinks = document.querySelectorAll('.nav-links a');
+    const mobileLinks = document.querySelectorAll('#mobileMenu a');
 
-<section id="experiences_asso">
-    <h3>💼 Expériences associatives</h3>
-    <div class="card">
-        <h4>Pyronear - DÉTECTION DES DÉPARTS D'INCENDIE DANS LES FORÊTS</h4>
-        <p><em>Data For Good | Depuis 2024</em></p>
-        <p>Pyronear est une solution open source de détection précoce des
-feux de forêt utilisant des stations de surveillance automatisées pour
-alerter rapidement les pompiers.</p>
-    </div>
-</section>
+    function setActive(id) {
+      [...desktopLinks, ...mobileLinks].forEach(a => {
+        a.setAttribute('aria-current', a.getAttribute('href') === '#' + id ? 'page' : 'false');
+      });
+    }
 
-<section id="langues">
-    <h3>🌍 Langues</h3>
-    <ul class="skills">
-        <li>Français : Maternelle</li>
-        <li>Anglais : Courant (C2)</li>
-    </ul>
-</section>
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0.01 });
 
-<section id="projets">
-    <h3>💼 Projets</h3>
-    <div class="card">
-        <h4>Pyronear - DÉTECTION DES DÉPARTS D'INCENDIE DANS LES FORÊTS</h4>
-        <p><em>Data For Good | Depuis 2024</em></p>
-        <p>Pyronear est une solution open source de détection précoce des
-feux de forêt utilisant des stations de surveillance automatisées pour
-alerter rapidement les pompiers.</p>
-    </div>
-</section>
-
-<section id="interets">
-    <h3>🎯 Centres d’intérêt</h3>
-    <ul class="skills">
-        <li>Vulgarisation scientifique</li>
-        <li>Voyages et tourisme culturel</li>
-    </ul>
-</section>
-
-
-
-<footer>
-    <p>© 2025 Christian Manzala Kumbi - Portfolio</p>
-</footer>
-
+    sections.forEach(s => obs.observe(s));
+  </script>
 </body>
 </html>
