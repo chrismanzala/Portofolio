@@ -136,10 +136,24 @@
       padding: 16px; box-shadow: var(--shadow);
     }
     .avatar .photo {
-      aspect-ratio: 1/1; width: 100%; border-radius: 16px;
-      background: linear-gradient(135deg, rgba(37,99,235,.15), rgba(14,165,233,.15));
-      display: grid; place-items: center; font-weight: 700; color: var(--primary);
+    width: 250px;       /* largeur du cadrant */
+    height: 360px;      /* hauteur du cadrant */
+    border-radius: 16px;
+    overflow: hidden;   /* coupe ce qui dépasse */
+    background: linear-gradient(135deg, rgba(37,99,235,.15), rgba(14,165,233,.15));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
     }
+
+    .avatar .photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;   /* remplit le cadrant */
+    border-radius: 16px; /* garde les coins arrondis */
+    }
+
     .stats {
       margin-top: 12px; display: grid; grid-template-columns: repeat(3,1fr); gap: 10px;
     }
@@ -285,19 +299,19 @@
 
           <aside class="avatar" aria-label="Carte profil">
             <div class="photo">
-              CMK
+              <img src="C:\Users\tmanz\Downloads\A51D22F9-B126-48AD-9150-FAF26FEABB35-Récupéré_page-0001.jpg" alt="Christian Manzala Kumbi"/>
             </div>
             <div class="stats" aria-label="Indicateurs">
               <div class="stat">
-                <b>+<span>??</span></b>
+                <b>+<span>15</span></b>
                 <span>Projets livrés</span>
               </div>
               <div class="stat">
-                <b>+<span>??</span>%</b>
+                <b>+<span>40</span>%</b>
                 <span>Gain de temps</span>
               </div>
               <div class="stat">
-                <b>+<span>??</span>%</b>
+                <b>+<span>100</span>%</b>
                 <span>Satisfaction client</span>
               </div>
             </div>
@@ -551,11 +565,12 @@
         <div class="grid">
           <div class="card col-6">
             <h3>Master 2 — Data Science</h3>
-            <p>Université (À PERSONNALISER) — Statistiques, ML, Big Data, Visualisation, Projet de fin d’études.</p>
+            <p>Université d'Aix-Marseille — Statistiques, Machine Learning, Visualisation, Big Data, Gestion de Projet.</p>
           </div>
           <div class="card col-6">
-            <h3>Certifications (sélection)</h3>
-            <p>À PERSONNALISER : AWS / GCP, Dataiku, Tableau, Power BI, etc.</p>
+            <h3>Certifications </h3>
+            <p>Dataiku Core Designer</p>
+            <p>Dataiku ML Practitioner</p>
           </div>
         </div>
       </div>
@@ -577,13 +592,13 @@
             <p>
               📧 <a href="mailto:cmanzalak@gmail.com">cmanzalak@gmail.com</a><br/>
               📞 <a href="tel:+33753114180">+33 7 53 11 41 80</a><br/>
-              🔗 <a href="https://www.linkedin.com/in/christianmanzala" target="_blank" rel="noopener">LinkedIn</a> ·
+              🔗 <a href="linkedin.com/in/christian-manzala-kumbi-14653a182/" target="_blank" rel="noopener">LinkedIn</a> ·
               <a href="https://github.com/chrismanzala" target="_blank" rel="noopener">GitHub</a>
             </p>
           </div>
           <div class="card">
             <h3>Brief rapide</h3>
-            <p>Pas de backend requis : ce bouton ouvre votre messagerie avec un message prérempli.</p>
+            <p>Envoyez-moi une brève discription du projet par mail</p>
             <a class="btn btn-primary"
                href='mailto:cmanzalak@gmail.com?subject=Mission%20Data%20—%20Brief&body=Bonjour%20Christian,%0A%0ANous%20souhaiterions%20%C3%A9changer%20au%20sujet%20d%27une%20mission%20Data.%20Voici%20quelques%20informations%20:%0A-%20Contexte%20:%0A-%20Objectifs%20:%0A-%20Donn%C3%A9es%20disponibles%20:%0A-%20D%C3%A9lais%20:%0A%0ABien%20%C3%A0%20vous,'>
               Démarrer un brief par email
